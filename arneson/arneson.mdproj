@@ -9,4 +9,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
     <OutputPath>.\</OutputPath>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\main.css" />
+    <None Include="src\main.js" />
+    <None Include="index.html" />
+  </ItemGroup>
 </Project>

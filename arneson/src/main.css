@@ -1,0 +1,35 @@
+﻿body {
+    background: #FFFFFF;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+flex: 1 0 auto;
+}
+   
+  /* label color */
+  .input-field label {
+    color: #AAA;
+  }
+  
+  /* label focus color */
+ .input-field textarea:focus + label {
+    color: whitesmoke !important;
+  }
+
+  /* label underline focus color */
+  .input-field textarea:focus {
+    border-bottom: 1px solid whitesmoke !important;
+    box-shadow: 0 1px 0 0 whitesmoke !important;
+  }
+
+
+  input, select, textarea{
+    color: white;
+}
+
+textarea:focus, input:focus {
+    color: white;
+}

@@ -1,10 +1,72 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified CSS see https://materializecss.com -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript see https://materializecss.com -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+        <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+        <script src="src/main.js" defer></script>
+        <link rel=stylesheet href="src/main.css">
+    </head>
 <body>
-
+    <header>
+        <nav>
+            <div class="nav nav-wrapper">
+              <a href="#!" class="brand-logo right"><i class="large material-icons">wallpaper</i>Arneson</a>
+            </div>
+        </nav>    
+    </header>
+    <main id="main">
+        <div class="spacer" height="100"></div>
+        <div id="visualization"></div>
+          <!-- Modal Structure -->
+  <div id="prompt-modal" class="modal">
+    <div class="modal-content red lighten-2 align-left white-text">
+      <h6><b>...</b></h6>
+      <div class="input-field col s6 h4">
+        <textarea id="happening-text" class="materialize-textarea" data-length="200"></textarea>
+        <label for="happening-text">What happened?</label>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <a id="handlingCardSaveBtn" class="modal-close save-btn waves-effect waves-light btn red">save</a>
+        <a id="handlingCardCancelBtn" class="modal-close waves-effect waves-light btn red">cancel</a>
+    </div>
+  </div>
+    </main>
+    <footer class="page-footer white"></footer>
+    <div id="happening-card" class="card-reveal hide">
+        <div class="row">
+            <div class="col s6 container">
+                <div class="card red lighten-2 align-left">
+                    <div class="card-content white-text">
+                        <span class="card-title"><b>Something Happened</b></span>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field col s6 h4 white-text">
+                                    <textarea id="happening-text" class="materialize-textarea" data-length="200"></textarea>
+                                    <label for="happening-text">What happened?</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <a id="handlingCardSaveBtn" class="save-btn waves-effect waves-light btn red">save</a>
+                        <a id="handlingCardCancelBtn" class="waves-effect waves-light btn red">cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <a id="createCharacterButton" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">person_add</i></a>
+        <a id="createEventButton" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">whatshot</i></a>
+        <a id="saveStateButton" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">save</i></a>
+    </div>
 </body>
+
 </html>
