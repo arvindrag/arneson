@@ -33,3 +33,22 @@ flex: 1 0 auto;
 textarea:focus, input:focus {
     color: white;
 }
+
+div.vis-label {font-weight: bold;}
+div.vis-label:nth-child(1n)  {background: #f06292; /* pink lighten-2*/}
+div.vis-label:nth-child(2n)  {background: #ba68c8; /* purple lighten-2*/}
+div.vis-label:nth-child(3n)  {background: #9575cd; /* deep-purple lighten-2*/}
+div.vis-label:nth-child(4n)  {background: #7986cb; /* indigo lighten-2*/}
+div.vis-label:nth-child(5n)  {background: #64b5f6; /* blue lighten-2*/}
+div.vis-label:nth-child(6n)  {background: #4fc3f7; /* light-blue lighten-2*/}
+div.vis-label:nth-child(7n)  {background: #4dd0e1; /* cyan lighten-2*/}
+div.vis-label:nth-child(8n)  {background: #4db6ac; /* teal lighten-2*/}
+div.vis-label:nth-child(9n)   {background: #81c784; /* green lighten-2*/}
+div.vis-label:nth-child(10n)  {background: #aed581; /* light-green lighten-2*/}
+div.vis-label:nth-child(11n)  {background: #dce775; /* lime lighten-2*/}
+div.vis-label:nth-child(12n)  {background: #fff176; /* yellow lighten-2*/}
+div.vis-label:nth-child(13n)  {background: #ffd54f; /* amber lighten-2*/}
+div.vis-label:nth-child(14n)  {background: #ffb74d; /* orange lighten-2*/}
+div.vis-label:nth-child(15n)  {background: #ff8a65; /* deep-orange lighten-2*/}
+div.vis-label:nth-child(16n)  {background: #a1887f; /* brown lighten-2*/}
+div.vis-label:nth-child(17n)  {background: #e0e0e0; /* grey lighten-2*/}

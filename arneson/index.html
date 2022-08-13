@@ -22,49 +22,38 @@
         </nav>    
     </header>
     <main id="main">
+        <div id="item-prompt-modal" class="modal">
+            <div class="modal-content red lighten-2 align-left white-text">
+                <h6><b>...</b></h6>
+                    <div class="input-field col s6 h4">
+                        <textarea id="item-prompt-modal-text" placeholder="???" class="materialize-textarea" data-length="200"></textarea>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <a id="item-prompt-modal-save" class="modal-close save-btn waves-effect waves-light btn red">save</a>
+                <a id="item-prompt-modal-cancel" class="modal-close waves-effect waves-light btn red">cancel</a>
+            </div>
+        </div>
+        <div id="group-prompt-modal" class="modal">
+            <div class="modal-content red lighten-1 align-left white-text">
+                <h6><b>...</b></h6>
+                    <div class="input-field col s6 h4">
+                        <textarea id="group-prompt-modal-text" placeholder="???" class="materialize-textarea" data-length="200"></textarea>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <a id="group-prompt-modal-save" class="modal-close save-btn waves-effect waves-light btn red">save</a>
+                <a id="group-prompt-modal-cancel" class="modal-close waves-effect waves-light btn red">cancel</a>
+            </div>
+        </div>
+
         <div class="spacer" height="100"></div>
         <div id="visualization"></div>
-          <!-- Modal Structure -->
-    <div id="item-prompt-modal" class="modal">
-        <div class="modal-content red lighten-2 align-left white-text">
-            <h6><b>...</b></h6>
-                <div class="input-field col s6 h4">
-                    <textarea id="item-prompt-modal-text" placeholder="???" class="materialize-textarea" data-length="200"></textarea>
-                </div>
-            </div>
-        <div class="modal-footer">
-            <a id="item-prompt-modal-save" class="modal-close save-btn waves-effect waves-light btn red">save</a>
-            <a id="item-prompt-modal-cancel" class="modal-close waves-effect waves-light btn red">cancel</a>
-        </div>
-    </div>
+        <a id="edit-btn-char" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">person_add</i></a>
     </main>
     <footer class="page-footer white"></footer>
-    <div id="happening-card" class="card-reveal hide">
-        <div class="row">
-            <div class="col s6 container">
-                <div class="card red lighten-2 align-left">
-                    <div class="card-content white-text">
-                        <span class="card-title"><b>Something Happened</b></span>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="input-field col s6 h4 white-text">
-                                    <textarea id="happening-text" class="materialize-textarea" data-length="200"></textarea>
-                                    <label for="happening-text">What happened?</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-action">
-                        <a id="handlingCardSaveBtn" class="save-btn waves-effect waves-light btn red">save</a>
-                        <a id="handlingCardCancelBtn" class="waves-effect waves-light btn red">cancel</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        <a id="createCharacterButton" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">person_add</i></a>
-        <a id="createEventButton" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">whatshot</i></a>
-        <a id="saveStateButton" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">save</i></a>
+        <a id="footer-btn-save" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">save</i></a>
+        <a id="footer-btn-load" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">input</i></a>
     </div>
 </body>
 
