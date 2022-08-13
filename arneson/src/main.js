@@ -1,50 +1,6 @@
-﻿
-// todo:replace
-data = {
-  characters: [
-    {
-      id: 1,
-      content: "Goldiflocks",
-    },
-    {
-      id: 2,
-      content: "Mama Bear",
-    },
-  ],
-};
-
-// create groups to highlight groupUpdate
-groups = new vis.DataSet(data.characters);
-// create a DataSet with items
-var items = new vis.DataSet([
-  { id: 1, content: "Editable", editable: true, start: "2010-08-19", group: 1 },
-  {
-    id: 2,
-    content: "Editable",
-    start: "2010-08-23T23:00:00",
-    className: "red lighten-3",
-    group: 2,
-  },
-  {
-    id: 5,
-    content: "Edit Time Only",
-    start: "2010-08-28",
-    group: 1,
-  },
-  {
-    id: 6,
-    content: "Edit Group Only",
-    start: "2010-08-29",
-    group: 2,
-  },
-  {
-    id: 7,
-    content: "Remove Only",
-    start: "2010-08-31",
-    group: 1,
-  },
-  { id: 8, content: "Default", start: "2010-09-19", group: 2 },
-]);
+﻿// ---------------------------
+// Global constants
+// ---------------------------
 
 // ---------------------------
 // Utility Methods
@@ -59,35 +15,47 @@ function createElement(tag, classes = [], id = null) {
   }
   return element;
 }
+
 // ---------------------------
-// Tooling
+// Logic wrapping classes
 // ---------------------------
+
 class ItemPromptModal {
   constructor(id, dataset) {
     this.element = document.querySelectorAll("#" + id)[0];
+    // assume text has id = modal-id-text
     this.text = this.element.querySelectorAll("#" + id + "-text")[0];
+    // assume save-button has id = modal-id-save
     this.save = this.element.querySelectorAll("#" + id + "-save")[0];
+    // assume save-button has id = modal-id-del
+    this.del = this.element.querySelectorAll("#" + id + "-del")[0];
     this.item = null;
+    this.delete = false
     this.dataset = dataset;
     this.modal = M.Modal.init(this.element, {});
     this.save.addEventListener("click", () => {
       this.updateItem();
     });
+    if(this.del !== null && this.del !== undefined){
+      this.del.addEventListener("click", () => {
+        this.dataset.remove(this.item.id);
+      });  
+    }
     this.text.onkeypress = (event) => {
       const keyCode = event.keyCode;
       if (keyCode === 13) {
         this.updateItem();
         this.modal.close();
       }
-    }    
+    };
   }
   updateItem() {
     if (this.item !== null) {
       this.item.content = this.text.value;
-      if ("start" in this.item){
+      if ("start" in this.item) {
         this.item.start = Date.parse(this.item.start.toString());
       }
-      if ("end" in this.item){
+      if ("end" in this.item) {
         this.item.end = Date.parse(this.item.end.toString());
       }
       this.dataset.updateOnly(this.item);
@@ -102,88 +70,169 @@ class ItemPromptModal {
     this.text.select();
   }
 }
-const itemModal = new ItemPromptModal("item-prompt-modal", items);
-const groupModal = new ItemPromptModal("group-prompt-modal", groups);
 
-var container = document.getElementById("visualization");
-var options = {
-  editable: true, // default for all items
-  template: function (item, element, data) {
-  const lookup = 
-    ["pink", // #f06292 
-    "purple", // #ba68c8 
-    "deep-purple", // #9575cd 
-    "indigo", // #7986cb 
-    "blue", // #64b5f6 
-    "light-blue", // #4fc3f7 
-    "cyan", // #4dd0e1 
-    "teal", // #4db6ac 
-    "green", // #81c784 
-    "light-green", // #aed581 
-    "lime", // #dce775 
-    "yellow", // #fff176 
-    "amber", // #ffd54f 
-    "orange", // #ffb74d 
-    "deep-orange", // #ff8a65 
-    "brown", // #a1887f 
-    "grey", // #e0e0e0 
-    "blue-grey"] // #90a4ae 
-    element.classList.add(lookup[item.group-1]);
-    element.classList.add("white-text");
-    element.classList.add("lighten-2");
-
-    return item.content;
-  },
-};
-var timeline = new vis.Timeline(container, items, groups, options);
-timeline.on("doubleClick", (e) => {
-  switch (e.what) {
-    case "item":
-      if (e.item !== null) {
-        item = items.get(e.item);
-        itemModal.editItem(item);
-      }
-      break;
-    case "group-label":
-      if (e.group !== null) {
-        group = groups.get(e.group);
-        groupModal.editItem(group);
-      }      
-    default: 
+class TimelineWrapper {
+  static lookupColor(index){
+    const lookupArray = [
+      "pink",
+      "purple",
+      "deep-purple",
+      "indigo",
+      "blue",
+      "light-blue",
+      "cyan",
+      "teal",
+      "green",
+      "light-green",
+      "lime",
+      "yellow",
+      "amber",
+      "orange",
+      "deep-orange",
+      "brown",
+      "grey",
+      "blue-grey",
+    ];
+    return lookupArray[index]
   }
-});
 
+  static addClassNamesToGroups(groups){
+    groups.forEach(g=>{
+      g.className = TimelineWrapper.lookupColor(g.id-1);
+    })
+  }
+  constructor() {
+    this.groups = new vis.DataSet();
+    this.items = new vis.DataSet();
+    this.itemModal = new ItemPromptModal("item-prompt-modal", this.items);
+    this.groupModal = new ItemPromptModal("group-prompt-modal", this.groups);
+    let container = document.getElementById("visualization");
+    this.options = {
+      editable: true, // default for all items
+      zoomable: false,
+      horizontalScroll: true,
+      format: {
+        minorLabels: {
+          millisecond:'SSS',
+          second:     's',
+          minute:     'HH:mm',
+          hour:       'HH:mm',
+          weekday:    '[Day] D',
+          day:        '[Day] D',
+          week:       'w',
+          month:      '[Month] M',
+          year:       '[Year] YY'
+        },
+        majorLabels: {
+          millisecond:'HH:mm:ss',
+          second:     'D MMMM HH:mm',
+          minute:     'ddd D MMMM',
+          hour:       'ddd D MMMM',
+          weekday:    '[Month] M [Year] YY',
+          day:        '[Month] M [Year] YY',
+          week:       '[Month] M [Year] YY',
+          month:      '[Year] YY',
+          year:       ''
+        }
+      },
+      template: function (item, element, data) {
+        element.classList.add(TimelineWrapper.lookupColor(item.group-1));
+        element.classList.add("white-text");
+        element.classList.add("lighten-2");
+        return item.content;
+      },
+    };
+    this.timeline = new vis.Timeline(
+      container,
+      this.items,
+      this.groups,
+      this.options
+    );
+    this.timeline.on("doubleClick", (e) => {
+      switch (e.what) {
+        case "item":
+          if (e.item !== null) {
+            let item = this.items.get(e.item);
+            this.itemModal.editItem(item);
+          }
+          break;
+        case "group-label":
+          if (e.group !== null) {
+            let group = this.groups.get(e.group);
+            this.groupModal.editItem(group);
+          }
+        default:
+      }
+    });
+  }
+  clear(){
+    this.groups.clear();
+    this.items.clear();
+  }
+  loadData(data) {
+    this.items.clear();
+    this.items.add(data.items);
+    this.groups.clear();
+    this.groups.add(data.groups);
+  }
+  saveData() {
+    let itemdata = this.items.get({
+      fields: ["id", "start", "content", "group"], // output the specified fields only
+      type: {
+        start: "Date", // convert the date fields to Date objects
+        content: "String",
+        group: "int", // convert the group fields to Strings
+      },
+    });
+    let groupdata = this.groups.get({
+      fields: ["id", "content"], // output the specified fields only
+      type: {
+        id: "int", // convert the date fields to Date objects
+        content: "String", // convert the group fields to Strings
+      },
+    });
+    return { groups: groupdata, items: itemdata };
+  }
+  addGroup() {
+    let newid = 1;
+    if (this.groups.length > 0){
+      newid = this.groups.max("id").id + 1;
+    }
+    this.groups.add({ id: newid, content: "person_" + newid });
+  }
+}
+
+// ---------------------------
+// Declares
+// ---------------------------
+const timelineWrapper = new TimelineWrapper();
+
+// ---------------------------
+// Listeners
+// ---------------------------
 document.getElementById("footer-btn-save").addEventListener("click", () => {
-  let itemdata = items.get({
-    fields: ["id", "start", "content", "group"], // output the specified fields only
-    type: {
-      start: "Date", // convert the date fields to Date objects
-      content: "String",
-      group: "int", // convert the group fields to Strings
-    },
-  });
-  let groupdata = groups.get({
-    fields: ["id", "content"], // output the specified fields only
-    type: {
-      id: "int", // convert the date fields to Date objects
-      content: "String", // convert the group fields to Strings
-    },
-  });
-  localStorage.setItem("itemdata", JSON.stringify(itemdata));
-  localStorage.setItem("groupdata", JSON.stringify(groupdata));
+  let data = timelineWrapper.saveData();
+  localStorage.setItem("itemdata", JSON.stringify(data.items));
+  localStorage.setItem("groupdata", JSON.stringify(data.groups));
+  M.toast({html: 'Data saved!'})
 });
 
 document.getElementById("footer-btn-load").addEventListener("click", () => {
-  let itemdata = JSON.parse(localStorage.getItem("itemdata"));
-  items.clear();
-  items.add(itemdata);
-  let groupdata = JSON.parse(localStorage.getItem("groupdata"));
-  groups.clear();
-  groups.add(groupdata);
-  setTimeout(()=> timeline.fit(5000), 1000)
+  let itemdata = JSON.parse(localStorage.getItem("itemdata")).filter(d=>d.id!==null && d.start!==null);
+  let groupdata = JSON.parse(localStorage.getItem("groupdata")).filter(d=>d.id!==null && d.start!==null);
+  timelineWrapper.loadData({ groups: groupdata, items: itemdata });
+  M.toast({html: 'Loading data!'});
+  timelineWrapper.timeline.setWindow("2001-01-01", "2001-02-01");
 });
-
 document.getElementById("edit-btn-char").addEventListener("click", () => {
-  let newid = groups.max("id").id+1;
-  groups.add({"id": newid, "content": "person_"+newid});
+  timelineWrapper.addGroup();
+  M.toast({html: 'New character added!'})
+});
+document.getElementById("edit-btn-zoom").addEventListener("click", () => {
+  timelineWrapper.timeline.setWindow("2001-01-01", "2001-02-01");
+  M.toast({html: 'Zooming!'});
+});
+document.getElementById("edit-btn-clear").addEventListener("click", () => {
+  timelineWrapper.clear();
+  M.toast({html: 'Clearing all items!'});
 });
