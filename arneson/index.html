@@ -25,19 +25,18 @@
         <div class="spacer" height="100"></div>
         <div id="visualization"></div>
           <!-- Modal Structure -->
-  <div id="prompt-modal" class="modal">
-    <div class="modal-content red lighten-2 align-left white-text">
-      <h6><b>...</b></h6>
-      <div class="input-field col s6 h4">
-        <textarea id="happening-text" class="materialize-textarea" data-length="200"></textarea>
-        <label for="happening-text">What happened?</label>
+    <div id="item-prompt-modal" class="modal">
+        <div class="modal-content red lighten-2 align-left white-text">
+            <h6><b>...</b></h6>
+                <div class="input-field col s6 h4">
+                    <textarea id="item-prompt-modal-text" placeholder="???" class="materialize-textarea" data-length="200"></textarea>
+                </div>
+            </div>
+        <div class="modal-footer">
+            <a id="item-prompt-modal-save" class="modal-close save-btn waves-effect waves-light btn red">save</a>
+            <a id="item-prompt-modal-cancel" class="modal-close waves-effect waves-light btn red">cancel</a>
+        </div>
     </div>
-    </div>
-    <div class="modal-footer">
-        <a id="handlingCardSaveBtn" class="modal-close save-btn waves-effect waves-light btn red">save</a>
-        <a id="handlingCardCancelBtn" class="modal-close waves-effect waves-light btn red">cancel</a>
-    </div>
-  </div>
     </main>
     <footer class="page-footer white"></footer>
     <div id="happening-card" class="card-reveal hide">
