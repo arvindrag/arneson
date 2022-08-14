@@ -22,39 +22,42 @@
         </nav>    
     </header>
     <main id="main">
-        <div id="item-prompt-modal" class="modal">
-            <div class="modal-content red lighten-2 align-left white-text">
+        <div id="item-prompt-modal" class="modal  lighten-2">
+            <div class="modal-content white-text">
                 <h6><b>...</b></h6>
                     <div class="input-field col s6 h4">
                         <textarea id="item-prompt-modal-text" placeholder="???" class="materialize-textarea" data-length="200"></textarea>
                     </div>
                 </div>
             <div class="modal-footer">
-                <a id="item-prompt-modal-save" class="modal-close waves-effect waves-light btn red">save</a>
-                <a id="item-prompt-modal-cancel" class="modal-close waves-effect waves-light btn red">cancel</a>
+                <a id="item-prompt-modal-save" class="modal-close waves-effect waves-light btn">save</a>
+                <a id="item-prompt-modal-cancel" class="modal-close waves-effect waves-light btn">cancel</a>
             </div>
         </div>
-        <div id="group-prompt-modal" class="modal">
-            <div class="modal-content red lighten-1 align-left white-text">
+        <div id="group-prompt-modal" class="modal  lighten-2">
+            <div class="modal-content white-text">
                 <h6><b>...</b></h6>
                     <div class="input-field col s6 h4">
                         <textarea id="group-prompt-modal-text" placeholder="???" class="materialize-textarea" data-length="200"></textarea>
                     </div>
                 </div>
             <div class="modal-footer">
-                <a id="group-prompt-modal-del" class="modal-close waves-effect waves-light btn red"><i class="material-icons">delete</i></a>
-                <a id="group-prompt-modal-save" class="modal-close waves-effect waves-light btn red">save</a>
-                <a id="group-prompt-modal-cancel" class="modal-close waves-effect waves-light btn red">cancel</a>
+                <a id="group-prompt-modal-up" class="waves-effect waves-light btn left"><i class="material-icons">arrow_upward</i></a>
+                <a id="group-prompt-modal-down" class="waves-effect waves-light btn left"><i class="material-icons">arrow_downward</i></a>
+                <a id="group-prompt-modal-del" class="modal-close waves-effect waves-light btn"><i class="material-icons">delete</i></a>
+                <a id="group-prompt-modal-save" class="modal-close waves-effect waves-light btn">save</a>
+                <a id="group-prompt-modal-cancel" class="modal-close waves-effect waves-light btn">cancel</a>
             </div>
         </div>
         <div class="spacer" height="100"></div>
         <div id="visualization"></div>
+        <a id="edit-btn-char" class="btn-floating btn-large waves-effect waves-light red left"><i class="material-icons">person_add</i></a>
+        <a id="edit-btn-zoom-in" class="btn-floating btn-large waves-effect waves-light red left"><i class="material-icons">zoom_in</i></a>
+        <a id="edit-btn-zoom-out" class="btn-floating btn-large waves-effect waves-light red left"><i class="material-icons">zoom_out</i></a>                
+        <a id="edit-btn-clear" class="btn-floating btn-large waves-effect waves-light red left"><i class="material-icons">delete</i></a>
     </main>
     <footer class="page-footer white"></footer>
         <div class="row">
-                <a id="edit-btn-char" class="btn-floating btn-large waves-effect waves-light red left"><i class="material-icons">person_add</i></a>
-                <a id="edit-btn-zoom" class="btn-floating btn-large waves-effect waves-light red left"><i class="material-icons">zoom_out</i></a>
-                <a id="edit-btn-clear" class="btn-floating btn-large waves-effect waves-light red left"><i class="material-icons">delete</i></a>
         </div>
         <a id="footer-btn-save" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">save</i></a>
         <a id="footer-btn-load" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">input</i></a>
